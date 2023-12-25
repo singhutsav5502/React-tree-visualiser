@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cors({
-    origin: ["http://localhost:3000/"],
+    origin: ["http://localhost:3000/","https://react-tree-visualiser-server.vercel.app/"],
     methods: ["GET", "POST"],
     credentials: true
 }))
@@ -20,7 +20,7 @@ app.get('/', (req, res) => {
 });
 app.post('/parse', bodyParser.text(), (req, res) => {
     const { nodes, edges } = parseJSXContent(req.body.fileContent, req.body.fileName, req.body.fileID);
-    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Origin', '*'); 
     res.send({ nodes, edges });
 })
 app.listen(process.env.PORT, () => {
