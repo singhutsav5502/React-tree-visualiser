@@ -12,11 +12,12 @@ const DraggableExpansionButton = (props) => {
         <>
             <motion.div className='drag-wrapper'
 
-                drag={'y'}
+                drag={props.drag}
                 dragConstraints={props.dragConstraints}
                 dragElastic={2}
                 dragMomentum={0.1}
                 dragTransition={{ bounceStiffness: 600, bounceDamping: 10 }}
+                style={{...props.style}}
             >
                 {!isExpanded && (<motion.button
                     className='plus-button'
@@ -26,7 +27,7 @@ const DraggableExpansionButton = (props) => {
                     transition={{ duration: 0.2 }}
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.9 }}
-                    onDoubleClick={expandHandler} >+
+                    onDoubleClick={expandHandler} >{props.icon}
                     </motion.button>)}
 
                 <AnimatePresence>

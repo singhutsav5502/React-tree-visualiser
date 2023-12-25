@@ -13,7 +13,7 @@ function App() {
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
   const [shouldRunOnLayout, setShouldRunOnLayout] = useState(false);
-  const appRef= useRef(null)
+  const appRef = useRef(null)
   const themeHandler = () => {
     setIsDark((state) => !state)
     if (isDark) {
@@ -131,8 +131,8 @@ function App() {
   return (
     <>
       <div className="app-wrapper" ref={appRef}>
-        {/* <div className="app-left"> */}
-        <DraggableExpansionButton dragConstraints={appRef}>
+
+        <DraggableExpansionButton dragConstraints={appRef} drag='y' icon='+'>
           <FileList files={files}
             parseFileClickHandler={parseFileClickHandler}
             fileDeleteHandler={fileDeleteHandler}
@@ -142,7 +142,8 @@ function App() {
             setEdges={setEdges}
             isDark={isDark} />
         </DraggableExpansionButton>
-        {/* </div> */}
+
+
         <div className="app-right">
           <Viewport
             onLayout={onLayout}

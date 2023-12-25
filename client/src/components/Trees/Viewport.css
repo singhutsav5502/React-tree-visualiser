@@ -1,0 +1,26 @@
+.about-wrapper{
+    position: absolute;
+    transform:translate(-50%,-50%);
+    height: 80vh;
+    width: 80vw;
+    top:10%;
+    left:10%;
+    z-index: 1;
+    background-color:var(--background-secondary);
+    border:2px solid var(--border);
+}
+.about-internal-wrapper{
+    position:relative;
+    height: 100%;
+    width: 100%;
+}
+.info-button{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+.info-button-icon{
+    filter:invert(1);
+    background-repeat: no-repeat;
+    background-size: cover;
+}

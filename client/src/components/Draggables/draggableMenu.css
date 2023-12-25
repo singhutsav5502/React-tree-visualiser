@@ -52,7 +52,7 @@
 .drag-internal-wrapper{
     position: relative;
 }
-.drag-internal-wrapper .cross-button{
+.cross-button{
     position: absolute;
     top:10%;
     right:10%;

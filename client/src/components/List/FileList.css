@@ -55,7 +55,7 @@
     color: var(--font-primary);
     background-color: var(--background-primary);
     border: 1px solid var(--border);
-    padding: 10px 10.5px 10px 10.5px;
+    padding: 0.625rem 0.65625rem 0.625rem 0.65625rem;
     border-radius: 7px;
     cursor: pointer;
     margin-left: 0.5rem;
@@ -67,12 +67,10 @@
 }
 
 .theme-change-wrapper{
-    margin-bottom: 3rem;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap:0.5rem;
 }
 .icon{
     background-repeat: no-repeat;
