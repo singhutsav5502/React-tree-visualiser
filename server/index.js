@@ -18,7 +18,7 @@ app.use(cors({
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
-app.get('/parse', bodyParser.text(), (req, res) => {
+app.post('/parse', bodyParser.text(), (req, res) => {
     const { nodes, edges } = parseJSXContent(req.body.fileContent, req.body.fileName, req.body.fileID);
     res.header('Access-Control-Allow-Origin', '*'); 
     res.send({ nodes, edges });
