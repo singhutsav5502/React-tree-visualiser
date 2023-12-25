@@ -22,3 +22,5 @@ app.post('/parse', bodyParser.text(), (req, res) => {
         res.status(500).send({ error: error.message });
     }
 });
+const port = process.env.PORT || 5000;
+app.listen(port,()=> console.log(`listening to ${port}`))
