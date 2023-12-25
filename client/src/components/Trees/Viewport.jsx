@@ -17,7 +17,7 @@ const Viewport = ({ onLayout, themeHandler, nodes, edges, onNodesChange, onEdges
     const nodeTypes = useMemo(() => {
         return { treeNode: TreeNode }
     }, []); // define custom node
-    const [isVisibleInfo, setIsVisibleInfo] = useState(true)
+    const [isVisibleInfo, setIsVisibleInfo] = useState(false)
     const infoExpandHandler = () => {
         setIsVisibleInfo((state) => !state)
     }
@@ -52,15 +52,64 @@ const Viewport = ({ onLayout, themeHandler, nodes, edges, onNodesChange, onEdges
                 {isVisibleInfo &&
                     <motion.div
                         initial={{ scale: 0, opacity: 1 }}
-                        animate={{ scale: 1, opacity: 0.8 }}
+                        animate={{ scale: 1, opacity: 0.9 }}
                         exit={{ scale: 0, opacity: 0 }}
                         transition={{ duration: 0.2 }}
                         className="about-wrapper"
                     >
                         <div className="about-internal-wrapper">
-                            <span onClick={infoExpandHandler} className='cross-button' style={{ top: '3%', right: '3%', scale: '1.5' }}>
+                            <span onClick={infoExpandHandler} className='cross-button' style={{ top: '2%', right: '2%', scale: '1.5' }}>
                                 x
                             </span>
+                            <div className="about-content" style={{ display: 'flex' }}>
+                                <div className="about-left" style={{ gap: '10%' }}>
+                                    <span>
+                                        <h1 className='font-NeueHaas' style={{ fontSize: '4rem' }}>React Tree Vision</h1>
+                                        <p style={{ marginTop: '0.2rem', marginLeft: '0.25rem', fontSize: '1.25rem' }}>A react based js/jsx component tree visualiser</p>
+                                    </span>
+                                    <span>
+                                        <h2 className="font-NeueHaas">Steps to use: </h2>
+                                        <ol style={{ marginLeft: '2.5rem', marginTop: '0.5rem' }}>
+                                            <li style={{ marginTop: '0.2rem', fontSize: '1.25rem' }} >Press "Add File" to load a .js or .jsx file</li>
+                                            <li style={{ marginTop: '0.2rem', fontSize: '1.25rem' }} >Press the "parse" button</li>
+                                            <li style={{ marginTop: '0.2rem', fontSize: '1.25rem' }} >See the magic happen!</li>
+                                        </ol>
+                                    </span>
+                                    <span>
+                                        <h2 className="font-NeueHaas">Tech Stack: </h2>
+                                        <ul style={{ marginLeft: '1.8rem', marginTop: '0.5rem' }}>
+                                            <li style={{ marginTop: '0.2rem', fontSize: '1.25rem' }} >React</li>
+                                            <li style={{ marginTop: '0.2rem', fontSize: '1.25rem' }} >React Flow</li>
+                                            <li style={{ marginTop: '0.2rem', fontSize: '1.25rem' }} >Dagre</li>
+                                            <li style={{ marginTop: '0.2rem', fontSize: '1.25rem' }} >Framer Motion</li>
+                                            <li style={{ marginTop: '0.2rem', fontSize: '1.25rem' }} >Babel</li>
+                                            <li style={{ marginTop: '0.2rem', fontSize: '1.25rem' }} >Node.Js</li>
+                                            <li style={{ marginTop: '0.2rem', fontSize: '1.25rem' }} >Express.JS</li>
+                                        </ul>
+                                    </span>
+                                    <span>
+                                        <h2 style={{ display: 'inline' }}>Github: </h2>
+                                        <a href="https://github.com/singhutsav5502/React-tree-visualiser" rel="noreferrer" target="_blank">Click me!</a>
+                                    </span>
+                                </div>
+
+
+                                <div className="about-right">
+                                    <span >
+                                        <h1 className='font-NeueHaas' style={{ fontSize: '4rem' }}>Created By: </h1>
+                                        <h1 className='font-NeueHaas' style={{ fontSize: '4rem' }}>Utsav Singh</h1>
+                                    </span>
+                                    <span>
+                                        <p style={{ fontSize: '1.25rem' }}>An Indian <img
+                                            src="https://flagcdn.com/in.svg"
+                                            width="30"
+                                            alt="India"></img> fullstack developer and engineering student</p>
+                                    </span>
+                                    <span>
+                                        <h2 className="font-NeueHaas">LINKS:</h2>
+                                    </span>
+                                </div>
+                            </div>
                         </div>
                     </motion.div>
                 }
