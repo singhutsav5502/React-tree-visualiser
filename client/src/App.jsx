@@ -1,6 +1,7 @@
 
 import './App.css';
-import { useState, useCallback, useRef , useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect } from 'react';
+import DraggableExpansionButton from './components/Draggables/DraggableExpansionButton';
 import FileList from './components/List/FileList';
 import Viewport from './components/Trees/Viewport';
 import { applyEdgeChanges, applyNodeChanges } from 'reactflow';
@@ -12,7 +13,7 @@ function App() {
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);
   const [shouldRunOnLayout, setShouldRunOnLayout] = useState(false);
-
+  const appRef= useRef(null)
   const themeHandler = () => {
     setIsDark((state) => !state)
     if (isDark) {
@@ -106,10 +107,10 @@ function App() {
         console.log(err);
       })
   }
-  useEffect(()=>{
-    if(nodes.length && edges.length) onLayout('TB')
+  useEffect(() => {
+    if (nodes.length && edges.length) onLayout('TB')
     setShouldRunOnLayout(false)
-  },[shouldRunOnLayout])
+  }, [shouldRunOnLayout])
   const fileDeleteHandler = (file) => {
     setFiles((files) => {
       const temp = files.filter(fileData => fileData.ID !== file.ID);
@@ -129,9 +130,9 @@ function App() {
 
   return (
     <>
-      <div className="app-wrapper">
-        <div className="app-left">
-
+      <div className="app-wrapper" ref={appRef}>
+        {/* <div className="app-left"> */}
+        <DraggableExpansionButton dragConstraints={appRef}>
           <FileList files={files}
             parseFileClickHandler={parseFileClickHandler}
             fileDeleteHandler={fileDeleteHandler}
@@ -140,7 +141,8 @@ function App() {
             setNodes={setNodes}
             setEdges={setEdges}
             isDark={isDark} />
-        </div>
+        </DraggableExpansionButton>
+        {/* </div> */}
         <div className="app-right">
           <Viewport
             onLayout={onLayout}

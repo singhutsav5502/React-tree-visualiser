@@ -14,11 +14,11 @@ import TreeNode from './Node/TreeNode'
 import './Viewport.css'
 
 
-const Viewport = ({ onLayout,themeHandler, nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, isDark,  }) => {
+const Viewport = ({ onLayout, themeHandler, nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, isDark, }) => {
     const nodeTypes = useMemo(() => {
         return { treeNode: TreeNode }
     }, []); // define custom node
-   
+
     const onNodeClickHandler = (event, node) => {
         // for highlighting selected node
         setNodes((nodes) => {
@@ -41,7 +41,7 @@ const Viewport = ({ onLayout,themeHandler, nodes, edges, onNodesChange, onEdgesC
             return [...newEdges]
         })
     }
-    const NodesChangeHandler = (changes, load)=>{
+    const NodesChangeHandler = (changes, load) => {
         onNodesChange(changes);
     }
     return (
@@ -56,7 +56,7 @@ const Viewport = ({ onLayout,themeHandler, nodes, edges, onNodesChange, onEdgesC
                 fitView
             >
                 <Panel position='top-left'>
-                    <div className="theme-change-wrapper">
+                    <div className="theme-change-wrapper" onClick={themeHandler} style={{ cursor: "pointer" }}>
                         {isDark ? <i className="icon"
                             style={{
                                 backgroundImage: 'url("/moon.png")',
@@ -68,7 +68,7 @@ const Viewport = ({ onLayout,themeHandler, nodes, edges, onNodesChange, onEdgesC
                                     backgroundImage: 'url("/sun.png")'
                                 }}>
                             </i>}
-                        <button onClick={themeHandler} className='button-secondary  theme-button' style={{ marginLeft: '0px' }}>Theme Toggle</button>
+                        {/* <button onClick={themeHandler} className='button-secondary  theme-button' style={{ marginLeft: '0px' }}>Toggle</button> */}
                     </div>
                 </Panel>
                 <Panel position="top-right">
