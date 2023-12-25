@@ -8,11 +8,7 @@ const app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.use(cors({
-    origin: ["https://localhost:3000/"],
-    methods: ["GET", "POST"],
-    credentials: true
-}))
+app.use(cors())
 
 
 app.get('/', (req, res) => {
