@@ -1,0 +1,24 @@
+
+.node-wrapper{
+    padding: 15px;
+    border-radius: 7.5px;
+    background-color: var(--background-secondary);
+    opacity: 1;
+    border: 1px solid var(--border);
+}
+.node-wrapper p{
+    font-weight: 100;
+    margin-bottom: 20px;
+}
+.node-wrapper ul{
+    margin-top: 2px;
+    list-style-type: none ;
+    
+}
+.node-wrapper ul li{
+    color:var(--font-secondary)
+}
+.node-selected{
+    /* box-shadow: 0 14px 28px var(--background-accent), 0 10px 10px var(--background-accent);*/
+    border:2px solid var(--background-accent)
+}

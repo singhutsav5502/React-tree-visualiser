@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+/* @import url('https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro?styles=82961,82971,82969,82967,82965,82963,82959,82957'); */
+* {
+  font-family: 'JetBrains Mono', monospace;
+}
+
+:root {
+  --background-fileList: #f5f5f5;
+  --background-primary: #f5f5f5;
+  --background-secondary: #d3d3d3;
+  --background-tertiary: #f5f5dc;
+  --background-accent: #000000;
+  --font-accent: #f5f5f5;
+  --font-primary: #000000;
+  --font-secondary: #6284ec;
+  --border: #c0c0c0;
+}
+
+body[data-theme="dark"] {
+  --background-fileList: #293a4c;
+  --background-primary: #1a1a1a;
+  --background-secondary: #0d1f2d;
+  --background-tertiary: #2f4f4f;
+  --background-accent: #ffffff;
+  --font-accent: #1a1a1a;
+  --font-primary: #ffffff;
+  --font-secondary: #ffe4e1;
+  --border: #e5e4e2;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  color: var(--font-primary)
+}
+
+body {
+  width: 100vw;
+  min-height: 100vh;
+}
+
+.font-NeueHaas {
+  font-family: 'Neue Haas Grotesk Display Pro';
+}

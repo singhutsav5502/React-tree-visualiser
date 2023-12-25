@@ -1,0 +1,81 @@
+.file-list-wrapper {
+    padding:1rem;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+    background-color: var(--background-fileList);
+    border-radius: 14px;
+}
+
+.file-list-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.file-list-header h2 {
+    font-size: 1.5rem;
+}
+
+.file-header-buttons-wrapper button {
+    margin-top: 0.7em;
+    color: var(--font-accent);
+    background-color: var(--background-accent);
+    border: 1px solid var(--border);
+    padding: 10px 10.5px 10px 10.5px;
+    border-radius: 7px;
+    cursor: pointer;
+    transition:0.1s all ease-in;
+}
+.file-header-buttons-wrapper button:nth-child(odd){
+    margin-left:0.5rem;
+}
+.file-header-buttons-wrapper button:hover{
+    color: var(--font-primary);
+    background-color:var(--background-primary);
+}
+.list-element-wrapper {
+    margin-top: 2rem;
+    width: 100%;
+    display: flex;
+
+}
+
+.list-element-wrapper>p {
+    display: flex;
+    align-items: center;
+    width: 50%;
+}
+
+.button-secondary{
+    color: var(--font-primary);
+    background-color: var(--background-primary);
+    border: 1px solid var(--border);
+    padding: 10px 10.5px 10px 10.5px;
+    border-radius: 7px;
+    cursor: pointer;
+    margin-left: 0.5rem;
+    transition:0.1s all ease-in;
+}
+.button-secondary:hover{
+    background-color: var(--background-accent);
+    color: var(--font-accent);
+}
+
+.theme-change-wrapper{
+    margin-bottom: 3rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap:0.5rem;
+}
+.icon{
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 2rem;
+    height: 2rem;
+}
