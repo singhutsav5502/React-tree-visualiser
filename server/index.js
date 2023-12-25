@@ -10,7 +10,6 @@ app.use(bodyParser.json());
 
 app.use(cors());
 
-const port = 5000;
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -19,6 +18,6 @@ app.post('/parse', bodyParser.text(), (req, res) => {
     const { nodes, edges } = parseJSXContent(req.body.fileContent , req.body.fileName , req.body.fileID);
     res.send({ nodes, edges });
 })
-app.listen(port, () => {
-    console.log(`listening to port: ${port}`)
-});
+// app.listen(process.env.PORT, () => {
+//     console.log(`listening to port: ${process.env.PORT}`)
+// });
