@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(cors({
-    origin: ["https://localhost:3000/","https://react-tree-visualiser-server.vercel.app/"],
+    origin: ["https://localhost:3000/"],
     methods: ["GET", "POST"],
     credentials: true
 }))
