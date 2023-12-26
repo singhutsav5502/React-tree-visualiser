@@ -6,8 +6,10 @@ import FileList from './components/List/FileList';
 import Viewport from './components/Trees/Viewport';
 import { applyEdgeChanges, applyNodeChanges } from 'reactflow';
 import Dagre from '@dagrejs/dagre';
+import Loader from './components/Loader';
 function App() {
   let i = useRef(0);
+  const [isLoading, setIsLoading] = useState(false)
   const [isDark, setIsDark] = useState(false);
   const [files, setFiles] = useState([]);
   const [nodes, setNodes] = useState([]);
@@ -84,6 +86,7 @@ function App() {
     })
   }
   const parseFileClickHandler = (file) => {
+    setIsLoading(true);
     fetch(`${process.env.REACT_APP_BACKEND}parse/`, {
       method: 'POST',
       headers: {
@@ -93,6 +96,7 @@ function App() {
 
     })
       .then(res => {
+        setIsLoading(false)
         if (!res.ok) {
           throw new Error('Failed to parse file')
         }
@@ -104,6 +108,7 @@ function App() {
         setShouldRunOnLayout(true);
       })
       .catch(err => {
+        setIsLoading(false)
         console.log(err);
       })
   }
@@ -127,11 +132,10 @@ function App() {
 
   }
 
-
   return (
     <>
       <div className="app-wrapper" ref={appRef}>
-
+        {isLoading&&<Loader isDark={isDark} />}
         <DraggableExpansionButton dragConstraints={appRef} drag='y' icon='+'>
           <FileList files={files}
             parseFileClickHandler={parseFileClickHandler}
