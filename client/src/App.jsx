@@ -7,9 +7,11 @@ import Viewport from './components/Trees/Viewport';
 import { applyEdgeChanges, applyNodeChanges } from 'reactflow';
 import Dagre from '@dagrejs/dagre';
 import Loader from './components/Loader';
+import Error from './components/Error/Error';
 function App() {
   let i = useRef(0);
   const [isLoading, setIsLoading] = useState(false)
+  const [isErr, setIsErr] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [files, setFiles] = useState([]);
   const [nodes, setNodes] = useState([]);
@@ -98,17 +100,27 @@ function App() {
       .then(res => {
         setIsLoading(false)
         if (!res.ok) {
+          setIsErr(true)
+          setIsLoading(false)
           throw new Error('Failed to parse file')
         }
         return res.json();
       })
       .then(response => {
-        setEdges((edges) => [...edges, ...response.edges]);
-        setNodes((nodes) => [...nodes, ...response.nodes]);
-        setShouldRunOnLayout(true);
+        if (response.nodes.length > 0 && response.edges.length > 0) {
+          setEdges((edges) => [...edges, ...response.edges]);
+          setNodes((nodes) => [...nodes, ...response.nodes]);
+          setShouldRunOnLayout(true);
+        }
+        else {
+          setIsErr(true)
+          setIsLoading(false)
+        }
+
       })
       .catch(err => {
         setIsLoading(false)
+        setIsErr(true)
         console.log(err);
       })
   }
@@ -135,7 +147,8 @@ function App() {
   return (
     <>
       <div className="app-wrapper" ref={appRef}>
-        {isLoading&&<Loader isDark={isDark} />}
+        {isErr && <Error setIsErr={setIsErr}/>}
+        {isLoading && <Loader isDark={isDark} />}
         <DraggableExpansionButton dragConstraints={appRef} drag='y' icon='+'>
           <FileList files={files}
             parseFileClickHandler={parseFileClickHandler}
