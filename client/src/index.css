@@ -1,5 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
-/* @import url('https://fonts.cdnfonts.com/css/neue-haas-grotesk-display-pro?styles=82961,82971,82969,82967,82965,82963,82959,82957'); */
 * {
   font-family: 'JetBrains Mono', monospace;
 }
@@ -27,7 +26,15 @@ body[data-theme="dark"] {
   --font-secondary: #ffe4e1;
   --border: #e5e4e2;
 }
+::-moz-selection { 
+  color: var(--font-secondary);
+  background: var(--background-secondary);
+}
 
+::selection {
+  color: var(--font-secondary);
+  background: var(--background-secondary);
+}
 * {
   margin: 0;
   padding: 0;

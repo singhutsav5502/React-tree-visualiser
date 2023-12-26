@@ -8,7 +8,7 @@ import { applyEdgeChanges, applyNodeChanges } from 'reactflow';
 import Dagre from '@dagrejs/dagre';
 function App() {
   let i = useRef(0);
-  const [isDark, setIsDark] = useState(true);
+  const [isDark, setIsDark] = useState(false);
   const [files, setFiles] = useState([]);
   const [nodes, setNodes] = useState([]);
   const [edges, setEdges] = useState([]);

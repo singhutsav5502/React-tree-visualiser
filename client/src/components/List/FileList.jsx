@@ -12,6 +12,22 @@ const FileList = ({  files, parseFileClickHandler, fileDeleteHandler, setFiles, 
         setNodes([]);
         setEdges([]);
     }
+    const nodeDeselectHandler = () => {
+        setNodes((nodes) => {
+            const newNodes = nodes.map((nd) => {
+                nd.data.isSelected = false
+                return nd
+            })
+            return [...newNodes]
+        })
+        setEdges((edges) => {
+            const newEdges = edges.map((edge) => {
+                edge.animated=false;
+                return edge
+            })
+            return [...newEdges]
+        })
+    }
     // need to clear input value so that onChange is triggered when selecting the same file after delete
     const fileSelectHandlerInternal = (event) => {
         fileSelectHandler(event);
@@ -19,7 +35,7 @@ const FileList = ({  files, parseFileClickHandler, fileDeleteHandler, setFiles, 
     }
     return (
         <>
-            <div className="file-list-wrapper">
+            <div className="file-list-wrapper" onClick={nodeDeselectHandler}>
                 
                 <div className="file-list-header">
                     <h2 className='font-NeueHaas'>FILES</h2>
