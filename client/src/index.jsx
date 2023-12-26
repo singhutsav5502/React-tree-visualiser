@@ -4,6 +4,22 @@ import './index.css';
 import './font.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import './fonts/NeueHaasDisplayBlack.ttf'
+import './fonts/NeueHaasDisplayBlackItalic.ttf'
+import './fonts/NeueHaasDisplayRoman.ttf'
+import './fonts/NeueHaasDisplayRomanItalic.ttf'
+import './fonts/NeueHaasDisplayBold.ttf'
+import './fonts/NeueHaasDisplayBoldItalic.ttf'
+import './fonts/NeueHaasDisplayLight.ttf'
+import './fonts/NeueHaasDisplayLightItalic.ttf'
+import './fonts/NeueHaasDisplayMediu.ttf'
+import './fonts/NeueHaasDisplayMediumItalic.ttf'
+import './fonts/NeueHaasDisplayThin.ttf'
+import './fonts/NeueHaasDisplayThinItalic.ttf'
+import './fonts/NeueHaasDisplayXThin.ttf'
+import './fonts/NeueHaasDisplayXThinItalic.ttf'
+import './fonts/NeueHaasDisplayXXThin.ttf'
+import './fonts/NeueHaasDisplayXXThinItalic.ttf'
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
