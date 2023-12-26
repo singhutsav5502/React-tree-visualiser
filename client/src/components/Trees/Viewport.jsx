@@ -67,7 +67,7 @@ const Viewport = ({ onLayout, themeHandler, nodes, edges, onNodesChange, onEdges
 
                                     <span>
                                         <h1 className='font-NeueHaas' style={{ fontSize: '4rem' }}>React TreeVis</h1>
-                                        <p style={{ marginTop: '0.2rem', marginLeft: '0.25rem', fontSize: '1.25rem' }}>A react based js/jsx component tree visualiser</p>
+                                        <p style={{ marginTop: '0.2rem', marginLeft: '0.25rem', fontSize: '1.25rem' }}>A react js/jsx component tree visualiser</p>
                                     </span>
                                     <span style={{ marginTop: '8%' }}>
                                         <p className="font-NeueHaas" style={{ fontSize: '1.25rem' }}>Steps to use: </p>

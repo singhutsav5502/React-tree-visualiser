@@ -18,7 +18,8 @@
 body[data-theme="dark"] {
   --background-fileList: #293a4c;
   --background-primary: #1a1a1a;
-  --background-secondary: #0d1f2d;
+  --background-secondary: #262c31;  
+  /* 0d1f2d */
   --background-tertiary: #2f4f4f;
   --background-accent: #ffffff;
   --font-accent: #1a1a1a;
