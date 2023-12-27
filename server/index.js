@@ -16,8 +16,8 @@ app.get('/', (req, res) => {
 });
 app.post('/parse', bodyParser.text(), (req, res) => {
     try {
-        const { nodes, edges } = parseJSXContent(req.body.fileContent, req.body.fileName, req.body.fileID);
-        res.send({ nodes, edges });
+        const { nodes, edges , zenNodes , zenEdges } = parseJSXContent(req.body.fileContent, req.body.fileName, req.body.fileID);
+        res.send({ nodes, edges , zenNodes , zenEdges });
     } catch (error) {
         res.status(500).send({ error: error.message });
     }

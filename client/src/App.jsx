@@ -10,6 +10,9 @@ import Loader from './components/Loader';
 import Error from './components/Error/Error';
 function App() {
   let i = useRef(0);
+  const [zenMode, setZenMode] = useState(false)
+  const [zenNodes, setZenNodes] = useState([])
+  const [zenEdges, setZenEdges] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [isErr, setIsErr] = useState(false);
   const [isDark, setIsDark] = useState(false);
@@ -28,11 +31,17 @@ function App() {
     }
   }
   const onNodesChange = useCallback(
-    (changes) => setNodes((nds) => applyNodeChanges(changes, nds)),
+    (changes) => {
+      setNodes((nds) => applyNodeChanges(changes, nds))
+      setZenNodes((nds) => applyNodeChanges(changes, nds))
+    },
     [],
   );
   const onEdgesChange = useCallback(
-    (changes) => setEdges((eds) => applyEdgeChanges(changes, eds)),
+    (changes) => {
+      setEdges((eds) => applyEdgeChanges(changes, eds))
+      setZenEdges((eds) => applyEdgeChanges(changes, eds))
+    },
     [],
   );
   const g = new Dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
@@ -62,10 +71,13 @@ function App() {
   const onLayout = useCallback(
     (direction) => {
       const layouted = getLayoutedElements(nodes, edges, { direction });
+      const zenLayouted = getLayoutedElements(zenNodes, zenEdges, { direction });
       setNodes([...layouted.nodes]);
       setEdges([...layouted.edges]);
+      setZenNodes([...zenLayouted.nodes])
+      setZenEdges([...zenLayouted.edges])
     },
-    [nodes, edges, setEdges, setNodes]
+    [nodes, edges, zenNodes, zenEdges, setEdges, setNodes]
   );
 
   const fileSelectHandler = (event) => {
@@ -110,6 +122,10 @@ function App() {
         if (response.nodes.length > 0 && response.edges.length > 0) {
           setEdges((edges) => [...edges, ...response.edges]);
           setNodes((nodes) => [...nodes, ...response.nodes]);
+          if (response.zenNodes && response.zenEdges) {
+            setZenNodes((nodes) => [...nodes, ...response.zenNodes]);
+            setZenEdges((nodes) => [...nodes, ...response.zenEdges]);
+          }
           setShouldRunOnLayout(true);
         }
         else {
@@ -128,6 +144,8 @@ function App() {
     if (nodes.length && edges.length) onLayout('TB')
     setShouldRunOnLayout(false)
   }, [shouldRunOnLayout])
+
+
   const fileDeleteHandler = (file) => {
     setFiles((files) => {
       const temp = files.filter(fileData => fileData.ID !== file.ID);
@@ -137,7 +155,15 @@ function App() {
       const temp = nodes.filter(node => node.fileID !== file.ID);
       return ([...temp]);
     })
+    setZenNodes((nodes) => {
+      const temp = nodes.filter(node => node.fileID !== file.ID);
+      return ([...temp])
+    })
     setEdges((edges) => {
+      const temp = edges.filter(edge => edge.fileID !== file.ID);
+      return ([...temp]);
+    })
+    setZenEdges((edges) => {
       const temp = edges.filter(edge => edge.fileID !== file.ID);
       return ([...temp]);
     })
@@ -147,7 +173,7 @@ function App() {
   return (
     <>
       <div className="app-wrapper" ref={appRef}>
-        {isErr && <Error setIsErr={setIsErr}/>}
+        {isErr && <Error setIsErr={setIsErr} />}
         {isLoading && <Loader isDark={isDark} />}
         <DraggableExpansionButton dragConstraints={appRef} drag='y' icon='+'>
           <FileList files={files}
@@ -157,7 +183,10 @@ function App() {
             setFiles={setFiles}
             setNodes={setNodes}
             setEdges={setEdges}
-            isDark={isDark} />
+            setZenNodes={setZenNodes}
+            setZenEdges={setZenEdges}
+            zenMode={zenMode}
+          />
         </DraggableExpansionButton>
 
 
@@ -165,12 +194,16 @@ function App() {
           <Viewport
             onLayout={onLayout}
             themeHandler={themeHandler}
-            nodes={nodes}
-            edges={edges}
+            nodes={zenMode ? zenNodes : nodes}
+            edges={zenMode ? zenEdges : edges}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             setNodes={setNodes}
             setEdges={setEdges}
+            setZenNodes={setZenNodes}
+            setZenEdges={setZenEdges}
+            setZenMode={setZenMode}
+            zenMode={zenMode}
             isDark={isDark}
           />
         </div>

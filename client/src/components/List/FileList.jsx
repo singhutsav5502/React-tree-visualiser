@@ -2,7 +2,7 @@ import React from 'react'
 import ListElement from './ListElement'
 import { useRef } from 'react';
 import './FileList.css'
-const FileList = ({  files, parseFileClickHandler, fileDeleteHandler, setFiles, fileSelectHandler, setNodes, setEdges, isDark }) => {
+const FileList = ({ files, parseFileClickHandler, fileDeleteHandler, setFiles, fileSelectHandler, setNodes, setEdges, setZenNodes, setZenEdges, zenMode }) => {
     const addFileRef = useRef(null);
     const addFileClickHandler = () => {
         addFileRef.current.click();
@@ -10,23 +10,45 @@ const FileList = ({  files, parseFileClickHandler, fileDeleteHandler, setFiles, 
     const fileClearHandler = () => {
         setFiles([]);
         setNodes([]);
+        setZenNodes([]);
         setEdges([]);
+        setZenEdges([]);
     }
     const nodeDeselectHandler = () => {
-        setNodes((nodes) => {
-            const newNodes = nodes.map((nd) => {
-                nd.data.isSelected = false
-                return nd
+        if (!zenMode) {
+            setNodes((nodes) => {
+                const newNodes = nodes.map((nd) => {
+                    nd.data.isSelected = false
+                    return nd
+                })
+                return [...newNodes]
             })
-            return [...newNodes]
-        })
-        setEdges((edges) => {
-            const newEdges = edges.map((edge) => {
-                edge.animated=false;
-                return edge
+            setEdges((edges) => {
+                const newEdges = edges.map((edge) => {
+                    edge.animated = false;
+                    return edge
+                })
+                return [...newEdges]
             })
-            return [...newEdges]
-        })
+        }
+        else {
+            setZenNodes((nodes) => {
+                const newNodes = nodes.map((nd) => {
+                    nd.data.isSelected = false
+                    return nd
+                })
+                return [...newNodes]
+            })
+
+
+            setZenEdges((edges) => {
+                const newEdges = edges.map((edge) => {
+                    edge.animated = false;
+                    return edge
+                })
+                return [...newEdges]
+            })
+        }
     }
     // need to clear input value so that onChange is triggered when selecting the same file after delete
     const fileSelectHandlerInternal = (event) => {
@@ -36,7 +58,7 @@ const FileList = ({  files, parseFileClickHandler, fileDeleteHandler, setFiles, 
     return (
         <>
             <div className="file-list-wrapper" onClick={nodeDeselectHandler}>
-                
+
                 <div className="file-list-header">
                     <h2 className='font-NeueHaas'>FILES</h2>
                     <div className="file-header-buttons-wrapper">
