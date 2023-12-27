@@ -33,7 +33,7 @@ function extractComponents(node, parent = null, parentStack = [], zenParentStack
             fileID: fileID,
             id: `${componentName}-${fileID}`,
             type: `treeNode`,
-            data: { label: componentName, props, isSelected: false }, // Include props in the data
+            data: { label: componentName, props, isSelected: false , isVisible:true, borderColor:'#808080'}, // Include props in the data
             position: { x: 0, y: 0 },
             parent,
         };
@@ -73,7 +73,7 @@ function parseJSXContent(jsxContent, fileName, fileID) {
         fileName: fileName,
         fileID: fileID,
         id: `${fileName}-${fileID}`,
-        data: { label: `${fileName}`, props: rootProps, isSelected: false }, // Include root props in the data
+        data: { label: `${fileName}`, props: rootProps, isSelected: false, isVisible:true, borderColor:'#808080' }, // Include root props in the data
         position: { x: 0, y: 0 },
         type: 'reactTreeNode'
     };

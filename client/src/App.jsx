@@ -10,6 +10,9 @@ import Loader from './components/Loader';
 import Error from './components/Error/Error';
 function App() {
   let i = useRef(0);
+  const [treeNodeColor, setTreeNodeColor] = useState('blue')
+  const [reactTreeNodeColor, setReactTreeNodeColor] = useState('red')
+
   const [zenMode, setZenMode] = useState(false)
   const [zenNodes, setZenNodes] = useState([])
   const [zenEdges, setZenEdges] = useState([])
@@ -122,6 +125,20 @@ function App() {
         if (response.nodes.length > 0 && response.edges.length > 0) {
           setEdges((edges) => [...edges, ...response.edges]);
           setNodes((nodes) => [...nodes, ...response.nodes]);
+          // assign colors
+          setNodes((nodes) => {
+            const newColor = nodes.map((nd) => {
+              if (nd.type === 'treeNode') {
+                nd.data.borderColor = treeNodeColor
+              }
+              else nd.data.borderColor = reactTreeNodeColor
+
+              return nd;
+            })
+            return [...newColor]
+          })
+
+
           if (response.zenNodes && response.zenEdges) {
             setZenNodes((nodes) => [...nodes, ...response.zenNodes]);
             setZenEdges((nodes) => [...nodes, ...response.zenEdges]);
