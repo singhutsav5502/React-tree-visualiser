@@ -10,13 +10,14 @@ import ReactFlow, {
 } from 'reactflow';
 import 'reactflow/dist/style.css';
 import TreeNode from './Node/TreeNode'
+import ReactTreeNode from './Node/ReactTreeNode'
 import './Viewport.css'
 import { motion, AnimatePresence } from 'framer-motion'
 import About from '../About/About'
 const Viewport = ({ onLayout, themeHandler, nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, isDark, setZenNodes, setZenEdges, zenMode, setZenMode }) => {
 
     const nodeTypes = useMemo(() => {
-        return { treeNode: TreeNode }
+        return { treeNode: TreeNode, reactTreeNode: ReactTreeNode }
     }, []); // define custom node
 
 
@@ -151,7 +152,7 @@ const Viewport = ({ onLayout, themeHandler, nodes, edges, onNodesChange, onEdges
 
                                 {/* Error handling use nodes.length for empty arrays */}
                                 <button className='button-secondary' onClick={zenModeHandler} >
-                                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', color: 'inherit'}}>
+                                    <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', color: 'inherit' }}>
                                         <input type="checkbox" ref={zenModeCheckbox} style={{ cursor: 'inherit' }} name='zenMode' />
                                         <label htmlFor="zenMode" style={{ color: 'inherit', cursor: 'inherit' }}>Zen Mode</label>
                                     </span>

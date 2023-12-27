@@ -32,7 +32,7 @@ function extractComponents(node, parent = null, parentStack = [], zenParentStack
             fileName: fileName,
             fileID: fileID,
             id: `${componentName}-${fileID}`,
-            type: 'treeNode',
+            type: `treeNode`,
             data: { label: componentName, props, isSelected: false }, // Include props in the data
             position: { x: 0, y: 0 },
             parent,
@@ -43,6 +43,8 @@ function extractComponents(node, parent = null, parentStack = [], zenParentStack
             // if first letter is capatalized then it is not an html dom element
             isReactComponent = true;
             updatedZenParentStack = [...updatedZenParentStack, componentName]
+
+            componentInfo.type='reactTreeNode'
         }
         return { componentInfo, parentStack: [...parentStack, componentName],zenParentStack: updatedZenParentStack, isReactComponent: isReactComponent};
     }
@@ -73,7 +75,7 @@ function parseJSXContent(jsxContent, fileName, fileID) {
         id: `${fileName}-${fileID}`,
         data: { label: `${fileName}`, props: rootProps, isSelected: false }, // Include root props in the data
         position: { x: 0, y: 0 },
-        type: 'treeNode'
+        type: 'reactTreeNode'
     };
     // Default Nodes and Edges
     const nodes = [rootComponent];
