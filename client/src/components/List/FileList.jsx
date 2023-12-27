@@ -72,7 +72,12 @@ const FileList = ({ files, parseFileClickHandler, fileDeleteHandler, setFiles, f
                 </div>
                 {files?.map((file) => {
 
-                    return (<ListElement key={file.ID} file={file} parseFileClickHandler={parseFileClickHandler} fileDeleteHandler={fileDeleteHandler} setFiles={setFiles} />)
+                    return (<ListElement
+                        key={file.ID}
+                        file={file}
+                        parseFileClickHandler={parseFileClickHandler}
+                        fileDeleteHandler={fileDeleteHandler}
+                    />)
                 })}
             </div>
         </>
