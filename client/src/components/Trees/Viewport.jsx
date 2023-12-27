@@ -154,7 +154,7 @@ const Viewport = ({ onLayout, themeHandler, nodes, edges, onNodesChange, onEdges
                                 <button className='button-secondary' onClick={zenModeHandler} >
                                     <span style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.5rem', color: 'inherit' }}>
                                         <input type="checkbox" ref={zenModeCheckbox} style={{ cursor: 'inherit' }} name='zenMode' />
-                                        <label htmlFor="zenMode" style={{ color: 'inherit', cursor: 'inherit' }}>Zen Mode</label>
+                                        <p style={{ color: 'inherit', cursor: 'inherit' }}>Zen Mode</p>
                                     </span>
                                 </button>
                                 <button onClick={() => { if (nodes.length) onLayout('TB') }} className='button-secondary'>vertical layout</button>
