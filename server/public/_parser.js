@@ -133,12 +133,15 @@ function parseJSXContent(jsxContent, fileName, fileID) {
                 parentStack.pop();
                 zenParentStack.pop() }
         },
-        JSXClosingElement(path) { 
-            parentStack.pop();
-            if (path.node.name.name[0] === path.node.name.name[0].toUpperCase()) {
-                // if first letter is capatalized then it is not an html dom element
+        JSXClosingElement(path) {
+            
+            const name = path?.node?.name?.name;
+
+            if (typeof name === 'string' && name.length > 0 && name[0] === name[0].toUpperCase()) {
                 zenParentStack.pop();
             }
+        
+            parentStack.pop();
          }
     });
 
