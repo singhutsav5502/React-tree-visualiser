@@ -21,7 +21,7 @@ React TreeVis is a tool designed to help developers visualize the hierarchy of R
 
 ## Blog
 
-- Check out the blog for this project [here]()!
+- Check out the blog for this project [here](https://singhutsav.hashnode.dev/react-component-tree-visualizer)!
 
 ## Technologies Used
 
