@@ -8,20 +8,21 @@ import { applyEdgeChanges, applyNodeChanges } from 'reactflow';
 import Dagre from '@dagrejs/dagre';
 import Loader from './components/Loader';
 import Error from './components/Error/Error';
+import { initialNodes, initialEdges, initialZenEdges, initialZenNodes } from './DummyData';
 function App() {
   let i = useRef(0);
   const [treeNodeColor, setTreeNodeColor] = useState('blue')
   const [reactTreeNodeColor, setReactTreeNodeColor] = useState('red')
-
+  const [isDummy, setIsDummy] = useState(true)
   const [zenMode, setZenMode] = useState(false)
-  const [zenNodes, setZenNodes] = useState([])
-  const [zenEdges, setZenEdges] = useState([])
+  const [zenNodes, setZenNodes] = useState(initialZenNodes)
+  const [zenEdges, setZenEdges] = useState(initialZenEdges)
   const [isLoading, setIsLoading] = useState(false)
   const [isErr, setIsErr] = useState(false);
   const [isDark, setIsDark] = useState(false);
   const [files, setFiles] = useState([]);
-  const [nodes, setNodes] = useState([]);
-  const [edges, setEdges] = useState([]);
+  const [nodes, setNodes] = useState(initialNodes);
+  const [edges, setEdges] = useState(initialEdges);
   const [shouldRunOnLayout, setShouldRunOnLayout] = useState(false);
   const appRef = useRef(null)
   const themeHandler = () => {
@@ -122,7 +123,14 @@ function App() {
         return res.json();
       })
       .then(response => {
-        if (response.nodes.length > 0 && response.edges.length > 0) {
+        if (response.nodes.length > 0 && response.edges.length >= 0) {
+          if (isDummy) {
+            setNodes([]);
+            setEdges([]);
+            setZenNodes([]);
+            setZenEdges([]);
+            setIsDummy(false);
+          }
           setEdges((edges) => [...edges, ...response.edges]);
           setNodes((nodes) => [...nodes, ...response.nodes]);
           // assign colors
@@ -162,6 +170,9 @@ function App() {
     setShouldRunOnLayout(false)
   }, [shouldRunOnLayout])
 
+  useEffect(()=>{
+    onLayout('TB')
+  })
 
   const fileDeleteHandler = (file) => {
     setFiles((files) => {
@@ -211,8 +222,8 @@ function App() {
           <Viewport
             onLayout={onLayout}
             themeHandler={themeHandler}
-            nodes={zenMode ? zenNodes : nodes}
-            edges={zenMode ? zenEdges : edges}
+            nodes={(zenMode ? zenNodes : nodes)}
+            edges={(zenMode ? zenEdges : edges)}
             onNodesChange={onNodesChange}
             onEdgesChange={onEdgesChange}
             setNodes={setNodes}
