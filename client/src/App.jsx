@@ -170,11 +170,7 @@ function App() {
     setShouldRunOnLayout(false)
   }, [shouldRunOnLayout])
 
-  useEffect(()=>{
-    onLayout('TB')
-  },[isDummy])
-
-  const fileDeleteHandler = (file) => {
+    const fileDeleteHandler = (file) => {
     setFiles((files) => {
       const temp = files.filter(fileData => fileData.ID !== file.ID);
       return ([...temp]);
