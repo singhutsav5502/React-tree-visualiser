@@ -1,9 +1,9 @@
 const { parse } = require('@babel/parser');
 const traverse = require('@babel/traverse').default;
 
-function extractComponents(node, parent = null, parentStack = [], zenParentStack=[], fileName, fileID, i) {
+function extractComponents(node, parent = null, parentStack = [], zenParentStack = [], fileName, fileID) {
     if (node.type === 'JSXOpeningElement') {
-        const componentName = `${node.name.name}- Element No. ${i}`;
+        const componentName = `${node.name.name}- Line No. ${node.loc.start.line}`;
         const props = {};
         node.attributes.forEach((attribute) => {
             if (attribute.type === 'JSXAttribute') {
@@ -33,7 +33,7 @@ function extractComponents(node, parent = null, parentStack = [], zenParentStack
             fileID: fileID,
             id: `${componentName}-${fileID}`,
             type: `treeNode`,
-            data: { label: componentName, props, isSelected: false , isVisible:true, borderColor:'#808080'}, // Include props in the data
+            data: { label: componentName, props, isSelected: false, isVisible: true, borderColor: '#808080' }, // Include props in the data
             position: { x: 0, y: 0 },
             parent,
         };
@@ -44,9 +44,9 @@ function extractComponents(node, parent = null, parentStack = [], zenParentStack
             isReactComponent = true;
             updatedZenParentStack = [...updatedZenParentStack, componentName]
 
-            componentInfo.type='reactTreeNode'
+            componentInfo.type = 'reactTreeNode'
         }
-        return { componentInfo, parentStack: [...parentStack, componentName],zenParentStack: updatedZenParentStack, isReactComponent: isReactComponent};
+        return { componentInfo, parentStack: [...parentStack, componentName], zenParentStack: updatedZenParentStack, isReactComponent: isReactComponent };
     }
     return { componentInfo: null, parentStack, zenParentStack, isReactComponent: false };
 }
@@ -73,7 +73,7 @@ function parseJSXContent(jsxContent, fileName, fileID) {
         fileName: fileName,
         fileID: fileID,
         id: `${fileName}-${fileID}`,
-        data: { label: `${fileName}`, props: rootProps, isSelected: false, isVisible:true, borderColor:'#808080' }, // Include root props in the data
+        data: { label: `${fileName}`, props: rootProps, isSelected: false, isVisible: true, borderColor: '#808080' }, // Include root props in the data
         position: { x: 0, y: 0 },
         type: 'reactTreeNode'
     };
@@ -89,11 +89,11 @@ function parseJSXContent(jsxContent, fileName, fileID) {
 
     traverse(ast, {
         JSXOpeningElement(path) {
-            const { componentInfo, parentStack: updatedParentStack, zenParentStack: updatedZenParentStack , isReactComponent: isReactComponent } = extractComponents(path.node, null, parentStack, zenParentStack, fileName, fileID, i);
+            const { componentInfo, parentStack: updatedParentStack, zenParentStack: updatedZenParentStack, isReactComponent: isReactComponent } = extractComponents(path.node, null, parentStack, zenParentStack, fileName, fileID);
 
             if (componentInfo) {
                 const componentLevel = updatedParentStack.length - 1;
-                const zenComponentLevel = updatedZenParentStack.length-1
+                const zenComponentLevel = updatedZenParentStack.length - 1
                 // Update x, y positions based on the hierarchy level
                 const x = componentLevel * 250 * Math.pow(-1, i); // Adjust the horizontal spacing between nodes
                 const y = componentLevel * (250); // Adjust the vertical spacing between nodes
@@ -101,7 +101,7 @@ function parseJSXContent(jsxContent, fileName, fileID) {
                 componentInfo.position = { x, y };
 
                 nodes.push(componentInfo);
-                if (isReactComponent){
+                if (isReactComponent) {
                     zenNodes.push(componentInfo)
                 }
                 if (componentInfo.id !== `${fileName}-${fileID}`) {
@@ -114,7 +114,7 @@ function parseJSXContent(jsxContent, fileName, fileID) {
                         type: 'smoothstep', // Type of edge
                         animated: false,
                     });
-                    if(isReactComponent){
+                    if (isReactComponent) {
                         zenEdges.push({
                             fileName: fileName,
                             fileID: fileID,
@@ -127,25 +127,26 @@ function parseJSXContent(jsxContent, fileName, fileID) {
                     }
                 }
                 parentStack.push(componentInfo.id);
-                if(isReactComponent) zenParentStack.push(componentInfo.id);
+                if (isReactComponent) zenParentStack.push(componentInfo.id);
             }
-            if (path.node.selfClosing) { 
+            if (path.node.selfClosing) {
                 parentStack.pop();
-                zenParentStack.pop() }
+                zenParentStack.pop()
+            }
         },
         JSXClosingElement(path) {
-            
+
             const name = path?.node?.name?.name;
 
             if (typeof name === 'string' && name.length > 0 && name[0] === name[0].toUpperCase()) {
                 zenParentStack.pop();
             }
-        
+
             parentStack.pop();
-         }
+        }
     });
 
-    return { nodes, edges, zenNodes ,zenEdges };
+    return { nodes, edges, zenNodes, zenEdges };
 }
 
 module.exports = parseJSXContent;
