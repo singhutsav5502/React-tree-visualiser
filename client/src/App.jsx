@@ -105,7 +105,7 @@ function App() {
   }
   const parseFileClickHandler = (file) => {
     setIsLoading(true);
-    fetch(`${process.env.REACT_APP_BACKEND}parse/`, {
+    fetch(`http://localhost:5000/parse/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
@@ -172,7 +172,7 @@ function App() {
 
   useEffect(()=>{
     onLayout('TB')
-  })
+  },[isDummy])
 
   const fileDeleteHandler = (file) => {
     setFiles((files) => {
