@@ -105,7 +105,7 @@ function App() {
   }
   const parseFileClickHandler = (file) => {
     setIsLoading(true);
-    fetch(`http://localhost:5000/parse/`, {
+    fetch(`${process.env.REACT_APP_BACKEND}parse/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
