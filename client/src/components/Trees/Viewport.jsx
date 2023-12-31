@@ -90,7 +90,7 @@ const Viewport = ({ onLayout, themeHandler, nodes, edges, onNodesChange, onEdges
     }
     useEffect(()=>{
         onLayout('TB')
-    })
+    },[])
     return (
         <>
             <div className="viewport-wrapper" >
