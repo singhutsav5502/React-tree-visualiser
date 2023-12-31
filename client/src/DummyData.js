@@ -25,7 +25,7 @@ export const initialNodes = [
     id: `2`, // Set ID to 2
     type: `treeNode`,
     data: { label: "DummyComponent2", props: {}, isSelected: false, isVisible: true, borderColor: 'blue' },
-    position: { x: 100, y: 100 },
+    position: { x: 1000, y: 100 },
   },
   {
     fileName: "DummyFile3",
@@ -33,7 +33,7 @@ export const initialNodes = [
     id: `3`, // Set ID to 3
     type: `treeNode`,
     data: { label: "DummyComponent3", props: {}, isSelected: false, isVisible: true, borderColor: 'blue' },
-    position: { x: -100, y: 100 },
+    position: { x: -1000, y: 100 },
   },
 ];
 
