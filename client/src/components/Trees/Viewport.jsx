@@ -14,7 +14,14 @@ import ReactTreeNode from './Node/ReactTreeNode'
 import './Viewport.css'
 import { motion, AnimatePresence } from 'framer-motion'
 import About from '../About/About'
-const Viewport = ({ onLayout, themeHandler, nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, isDark, setZenNodes, setZenEdges, zenMode, setZenMode }) => {
+const Viewport = ({ onLayout, themeHandler, nodes, edges, onNodesChange, onEdgesChange, setNodes, setEdges, isDark, setZenNodes, setZenEdges, zenMode, setZenMode, reRender = false }) => {
+
+    useEffect(() => {
+        if (reRender) {
+            onLayout('TB')
+            reRender=false;
+        }
+    })
 
     const nodeTypes = useMemo(() => {
         return { treeNode: TreeNode, reactTreeNode: ReactTreeNode }
@@ -88,9 +95,7 @@ const Viewport = ({ onLayout, themeHandler, nodes, edges, onNodesChange, onEdges
     const NodesChangeHandler = (changes, load) => {
         onNodesChange(changes);
     }
-    useEffect(()=>{
-        onLayout('TB')
-    },[])
+
     return (
         <>
             <div className="viewport-wrapper" >

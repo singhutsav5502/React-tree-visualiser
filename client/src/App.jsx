@@ -170,7 +170,7 @@ function App() {
     setShouldRunOnLayout(false)
   }, [shouldRunOnLayout])
 
-    const fileDeleteHandler = (file) => {
+  const fileDeleteHandler = (file) => {
     setFiles((files) => {
       const temp = files.filter(fileData => fileData.ID !== file.ID);
       return ([...temp]);
@@ -201,6 +201,7 @@ function App() {
         {isLoading && <Loader isDark={isDark} />}
         <DraggableExpansionButton dragConstraints={appRef} drag='y' icon='+'>
           <FileList files={files}
+            setIsDummy={setIsDummy}
             parseFileClickHandler={parseFileClickHandler}
             fileDeleteHandler={fileDeleteHandler}
             fileSelectHandler={fileSelectHandler}
@@ -215,7 +216,7 @@ function App() {
 
 
         <div className="app-right">
-          <Viewport
+          {isDummy ? <Viewport
             onLayout={onLayout}
             themeHandler={themeHandler}
             nodes={(zenMode ? zenNodes : nodes)}
@@ -229,7 +230,22 @@ function App() {
             setZenMode={setZenMode}
             zenMode={zenMode}
             isDark={isDark}
-          />
+            reRender={true}
+          /> : <Viewport
+            onLayout={onLayout}
+            themeHandler={themeHandler}
+            nodes={(zenMode ? zenNodes : nodes)}
+            edges={(zenMode ? zenEdges : edges)}
+            onNodesChange={onNodesChange}
+            onEdgesChange={onEdgesChange}
+            setNodes={setNodes}
+            setEdges={setEdges}
+            setZenNodes={setZenNodes}
+            setZenEdges={setZenEdges}
+            setZenMode={setZenMode}
+            zenMode={zenMode}
+            isDark={isDark}
+          />}
         </div>
       </div>
     </>

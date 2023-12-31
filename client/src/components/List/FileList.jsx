@@ -2,12 +2,13 @@ import React from 'react'
 import ListElement from './ListElement'
 import { useRef } from 'react';
 import './FileList.css'
-const FileList = ({ files, parseFileClickHandler, fileDeleteHandler, setFiles, fileSelectHandler, setNodes, setEdges, setZenNodes, setZenEdges, zenMode }) => {
+const FileList = ({ files, setIsDummy, parseFileClickHandler, fileDeleteHandler, setFiles, fileSelectHandler, setNodes, setEdges, setZenNodes, setZenEdges, zenMode }) => {
     const addFileRef = useRef(null);
     const addFileClickHandler = () => {
         addFileRef.current.click();
     }
     const fileClearHandler = () => {
+        setIsDummy(false)
         setFiles([]);
         setNodes([]);
         setZenNodes([]);
