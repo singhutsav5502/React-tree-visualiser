@@ -32,8 +32,11 @@ function App() {
   // theming
   const [isDark, setIsDark] = useState(false);
 
-
+// handle file load auto layouting using this state
   const [shouldRunOnLayout, setShouldRunOnLayout] = useState(false);
+
+//  ref for framer motion drag constraints
+
   const appRef = useRef(null)
   const themeHandler = () => {
     setIsDark((state) => !state)
@@ -44,6 +47,8 @@ function App() {
       document.body.dataset.theme = 'dark';
     }
   }
+
+  // React Flow node interactivity hooks
   const onNodesChange = useCallback(
     (changes) => {
       setNodes((nds) => applyNodeChanges(changes, nds))
@@ -58,6 +63,7 @@ function App() {
     },
     [],
   );
+  // dagre layouting code
   const g = new Dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
 
   const getLayoutedElements = (nodes, edges, options) => {
@@ -94,6 +100,7 @@ function App() {
     [nodes, edges, zenNodes, zenEdges, setEdges, setNodes]
   );
 
+  // file selection handler
   const fileSelectHandler = (event) => {
     const fileList = event.target.files;
 
@@ -113,6 +120,7 @@ function App() {
       reader.readAsText(file);
     })
   }
+  // parse POST request handler
   const parseFileClickHandler = (file) => {
     setIsLoading(true);
     fetch(`http://localhost:5000/parse/`, {
@@ -175,11 +183,14 @@ function App() {
         console.log(err);
       })
   }
+
+  // call Dagre Layouting if shouldRunOnLayout is true
   useEffect(() => {
     if (nodes.length && edges.length) onLayout('TB')
     setShouldRunOnLayout(false)
   }, [shouldRunOnLayout])
 
+  // specific file deletion handling based on id
   const fileDeleteHandler = (file) => {
     setFiles((files) => {
       const temp = files.filter(fileData => fileData.ID !== file.ID);
@@ -226,6 +237,7 @@ function App() {
 
 
         <div className="app-right">
+          {/* cause re render once dummy off */}
           {isDummy ? <Viewport
             onLayout={onLayout}
             themeHandler={themeHandler}
