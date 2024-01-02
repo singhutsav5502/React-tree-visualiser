@@ -10,19 +10,29 @@ import Loader from './components/Loader';
 import Error from './components/Error/Error';
 import { initialNodes, initialEdges, initialZenEdges, initialZenNodes } from './DummyData';
 function App() {
-  let i = useRef(0);
+  // counter responsible for handling file id to differentiate between same file names
+  let i = useRef(0); 
+  //  placehold color states for future UI feature to change border color of different types of nodes
   const [treeNodeColor, setTreeNodeColor] = useState('blue')
   const [reactTreeNodeColor, setReactTreeNodeColor] = useState('red')
+  // state for dummy node visibility after first file parsed
   const [isDummy, setIsDummy] = useState(true)
+  // store files
+  const [files, setFiles] = useState([]);
+  // zen and normal nodes nd edges
   const [zenMode, setZenMode] = useState(false)
   const [zenNodes, setZenNodes] = useState(initialZenNodes)
   const [zenEdges, setZenEdges] = useState(initialZenEdges)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isErr, setIsErr] = useState(false);
-  const [isDark, setIsDark] = useState(false);
-  const [files, setFiles] = useState([]);
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
+  // state var for the loading element when server call is being handled 
+  const [isLoading, setIsLoading] = useState(false)
+  // state for error modal
+  const [isErr, setIsErr] = useState(false);
+  // theming
+  const [isDark, setIsDark] = useState(false);
+
+
   const [shouldRunOnLayout, setShouldRunOnLayout] = useState(false);
   const appRef = useRef(null)
   const themeHandler = () => {
@@ -105,7 +115,7 @@ function App() {
   }
   const parseFileClickHandler = (file) => {
     setIsLoading(true);
-    fetch(`${process.env.REACT_APP_BACKEND}parse/`, {
+    fetch(`http://localhost:5000/parse/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
