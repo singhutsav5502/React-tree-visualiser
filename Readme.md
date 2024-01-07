@@ -2,6 +2,13 @@
 # [React TreeVis](https://react-tree-visualiser-frontend.vercel.app/)
 ### A JSX Component Visualizer
 
+## License
+
+This project is distributed under the default "no license" option. This means that without explicit permission, users are not granted the right to copy, distribute, or modify the code as per the Github Terms And Conditions. There is no accompanying license file, and unless specified otherwise, all rights are reserved.
+
+**Note:** While this code is publicly available, it does not come with the permissions typically associated with open source projects. Contributors are encouraged to reach out directly for permission before using or modifying the code in any way.
+
+For more information on open source licensing and permissions, please refer to [GitHub's Licensing Guide](https://docs.github.com/en/github/creating-cloning-and-archiving-repositories/licensing-a-repository).
   
 ## Introduction
 
