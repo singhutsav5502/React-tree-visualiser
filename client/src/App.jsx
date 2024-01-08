@@ -11,20 +11,33 @@ import Loader from './components/Loader';
 import Error from './components/Error/Error';
 import { initialNodes, initialEdges, initialZenEdges, initialZenNodes } from './DummyData';
 function App() {
-  let i = useRef(0);
+  // counter responsible for handling file id to differentiate between same file names
+  let i = useRef(0); 
+  //  placehold color states for future UI feature to change border color of different types of nodes
   const [treeNodeColor, setTreeNodeColor] = useState('blue')
   const [reactTreeNodeColor, setReactTreeNodeColor] = useState('red')
+  // state for dummy node visibility after first file parsed
   const [isDummy, setIsDummy] = useState(true)
+  // store files
+  const [files, setFiles] = useState([]);
+  // zen and normal nodes nd edges
   const [zenMode, setZenMode] = useState(false)
   const [zenNodes, setZenNodes] = useState(initialZenNodes)
   const [zenEdges, setZenEdges] = useState(initialZenEdges)
-  const [isLoading, setIsLoading] = useState(false)
-  const [isErr, setIsErr] = useState(false);
-  const [isDark, setIsDark] = useState(false);
-  const [files, setFiles] = useState([]);
   const [nodes, setNodes] = useState(initialNodes);
   const [edges, setEdges] = useState(initialEdges);
+  // state var for the loading element when server call is being handled 
+  const [isLoading, setIsLoading] = useState(false)
+  // state for error modal
+  const [isErr, setIsErr] = useState(false);
+  // theming
+  const [isDark, setIsDark] = useState(false);
+
+// handle file load auto layouting using this state
   const [shouldRunOnLayout, setShouldRunOnLayout] = useState(false);
+
+//  ref for framer motion drag constraints
+
   const appRef = useRef(null)
   const themeHandler = () => {
     setIsDark((state) => !state)
@@ -35,6 +48,8 @@ function App() {
       document.body.dataset.theme = 'dark';
     }
   }
+
+  // React Flow node interactivity hooks
   const onNodesChange = useCallback(
     (changes) => {
       setNodes((nds) => applyNodeChanges(changes, nds))
@@ -49,6 +64,7 @@ function App() {
     },
     [],
   );
+  // dagre layouting code
   const g = new Dagre.graphlib.Graph().setDefaultEdgeLabel(() => ({}));
 
   const getLayoutedElements = (nodes, edges, options) => {
@@ -85,6 +101,7 @@ function App() {
     [nodes, edges, zenNodes, zenEdges, setEdges, setNodes]
   );
 
+  // file selection handler
   const fileSelectHandler = (event) => {
     const fileList = event.target.files;
 
@@ -104,6 +121,7 @@ function App() {
       reader.readAsText(file);
     })
   }
+  // parse POST request handler
   const parseFileClickHandler = (file) => {
     setIsLoading(true);
     fetch(`${process.env.REACT_APP_BACKEND}parse/`, {
@@ -166,11 +184,14 @@ function App() {
         console.log(err);
       })
   }
+
+  // call Dagre Layouting if shouldRunOnLayout is true
   useEffect(() => {
     if (nodes.length && edges.length) onLayout('TB')
     setShouldRunOnLayout(false)
   }, [shouldRunOnLayout])
 
+  // specific file deletion handling based on id
   const fileDeleteHandler = (file) => {
     setFiles((files) => {
       const temp = files.filter(fileData => fileData.ID !== file.ID);
@@ -231,6 +252,7 @@ function App() {
 
 
         <div className="app-right">
+          {/* cause re render once dummy off */}
           {isDummy ? <Viewport
             onLayout={onLayout}
             themeHandler={themeHandler}
