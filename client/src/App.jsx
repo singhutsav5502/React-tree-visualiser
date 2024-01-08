@@ -5,6 +5,7 @@ import DraggableExpansionButton from './components/Draggables/DraggableExpansion
 import FileList from './components/List/FileList';
 import Viewport from './components/Trees/Viewport';
 import { applyEdgeChanges, applyNodeChanges } from 'reactflow';
+import { ToastContainer } from 'react-toastify';
 import Dagre from '@dagrejs/dagre';
 import Loader from './components/Loader';
 import Error from './components/Error/Error';
@@ -196,6 +197,18 @@ function App() {
 
   return (
     <>
+      <ToastContainer
+        position="top-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme={isDark ? "dark" : 'light'}
+      />
       <div className="app-wrapper" ref={appRef}>
         {isErr && <Error setIsErr={setIsErr} />}
         {isLoading && <Loader isDark={isDark} />}
@@ -211,6 +224,8 @@ function App() {
             setZenNodes={setZenNodes}
             setZenEdges={setZenEdges}
             zenMode={zenMode}
+            isDummy={isDummy}
+            isDark={isDark}
           />
         </DraggableExpansionButton>
 

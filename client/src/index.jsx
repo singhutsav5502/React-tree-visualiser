@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import './font.css';
 import App from './App';
+import 'react-toastify/dist/ReactToastify.css';
 import reportWebVitals from './reportWebVitals';
 import './fonts/NeueHaasDisplayBlack.ttf'
 import './fonts/NeueHaasDisplayBlackItalic.ttf'

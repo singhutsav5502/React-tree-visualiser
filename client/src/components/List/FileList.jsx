@@ -1,19 +1,34 @@
 import React from 'react'
 import ListElement from './ListElement'
 import { useRef } from 'react';
+import { toast } from 'react-toastify';
 import './FileList.css'
-const FileList = ({ files, setIsDummy, parseFileClickHandler, fileDeleteHandler, setFiles, fileSelectHandler, setNodes, setEdges, setZenNodes, setZenEdges, zenMode }) => {
+const FileList = ({ files, isDummy,isDark , setIsDummy, parseFileClickHandler, fileDeleteHandler, setFiles, fileSelectHandler, setNodes, setEdges, setZenNodes, setZenEdges, zenMode }) => {
     const addFileRef = useRef(null);
     const addFileClickHandler = () => {
-        addFileRef.current.click();
+        if (isDummy === true) {
+            toast.error('Press "Clear Files" to remove dummy nodes and try again', {
+                position: "top-left",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: isDark ? 'dark' : 'light',
+            });
+        }
+        else {
+            addFileRef.current.click();
+        }
     }
     const fileClearHandler = () => {
-        setIsDummy(false)
         setFiles([]);
         setNodes([]);
         setZenNodes([]);
         setEdges([]);
         setZenEdges([]);
+        setIsDummy(false);
     }
     const nodeDeselectHandler = () => {
         if (!zenMode) {
